@@ -1,0 +1,51 @@
+
+html, body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+#mainContainer {
+    height: 100vh;
+    width: auto;
+    justify-content: center;
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    border:none;
+    background-color:darkkhaki;
+    flex-direction: column;
+}
+
+#settingsContainer {
+    background-color: lightgrey;
+    width: 100vw;
+    text-align: center;
+    flex:1;
+    max-height: 200px;
+}
+
+#gridContainer {
+    box-sizing:content-box;
+    display:flex;
+    max-width: 400px;
+    max-height: 400px;
+    min-height: 300px;
+    min-width: 300px;
+    flex-wrap:wrap;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px grey solid;
+    border-radius: 1%;
+    justify-content: center;
+}
+
+.box {
+    box-sizing: border-box;
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    border: 1px solid red
+}

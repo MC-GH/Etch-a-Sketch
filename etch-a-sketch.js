@@ -1,15 +1,65 @@
+//assign global variables
+ let gridContainer = document.getElementById('gridContainer');
+ let color = 'green';
+ let gridSize = 16;
+//assign buttons and add event listeners
  const gridSizeButton = document.getElementById('gridSizeButton');
  gridSizeButton.addEventListener('click', customGridSize);
- let gridContainer = document.getElementById('gridContainer');
- let boxes = document.querySelectorAll('.box');
+
+ const rainbowButton = document.getElementById("rainbow");
+ rainbowButton.addEventListener("click", () => {
+     color = 'rainbow';
+ });
+ 
+ const whiteButton = document.getElementById("green");
+ whiteButton.addEventListener("click", () => {
+     color = 'green';
+ });
+ 
+  const dynamicButton = document.getElementById("greyscale");
+  dynamicButton.addEventListener("click", () => {
+     color = 'greyscale';
+ });
+
+ const eraserButton = document.getElementById('eraser');
+ eraserButton.addEventListener("click", () => {
+     color = 'eraser';
+ });
+
+ //below reset button creates a new custom grid, and changes the background color of the boxes to transparent
+ //it does so by looping through the indexes of the array-like object that is created via getElementsByClassName method
+ const resetButton = document.getElementById('reset');
+ resetButton.addEventListener("click", () => {
+     createCustomGrid(16);
+     const boxes = document.getElementsByClassName('box');
+     for (let i = 0; i < boxes.length; i++) {
+         boxes[i].style.backgroundColor = 'rgba(0, 0, 0, 0)';
+     }
+     color = 'green';
+});
+
+function randomColor() {
+    let r = Math.floor(Math.random() * 255); 
+    let g = Math.floor(Math.random() * 255); 
+    let b = Math.floor(Math.random() * 255);
+    let a = 1;
+    return `rgba(${r},${g},${b},${a})`;
+}
+
+//creates initial custom grid on page load
+createCustomGrid(16);
 
 function customGridSize() {
-    let input = prompt('Please enter your desired gridsize. (max 100)');
-    //convert to number
-    let gridSize = parseInt(input);
-    console.log('Gridsize requested:' + gridSize);
-    //create grid with gridSize input
-    createCustomGrid(gridSize);
+    let input = prompt('Please enter your desired gridsize. (min. 1 max. 100)');
+    if (input > 100) {alert("Please enter a value lower than 100.");}
+    else if (input < 1) {alert('Please enter a gridsize of 1 or higher');}
+    else { 
+            // //convert to number
+        let gridSize =parseInt(input);
+        console.log('Gridsize requested:' + gridSize);
+            // //create grid with gridSize input
+        createCustomGrid(gridSize);
+    }
 }
 
 function createCustomGrid(gridSize) {
@@ -24,68 +74,32 @@ function createCustomGrid(gridSize) {
     console.log("Boxamount: " + boxAmount);
 
     for (let i = 0; i < boxAmount; i++) {
-        createBox();
-        //instead of referrinng to the createBox function, write the div creation out here. With Set attribute variable width and height + add Event listener for color change.
+        const box = document.createElement('div');
+        box.classList.add("box");
+        document.getElementById("gridContainer").appendChild(box);
+
+        box.setAttribute('style', `width:${boxSize}; height:${boxSize}`);
         console.log('custombox created');
 
-        //add the style in this loop instead of outside the loop
-    }
-        let boxes = document.querySelectorAll('.box');
-        boxes.forEach(box => {
-        box.setAttribute('style', `width:${boxSize}; height:${boxSize}; background:${changeColor}`);
-        // box.style.width = `${boxSize}+px`;
-        // box.style.height = `${boxSize}+px`;
-            //check if we can include event listener here instead of under createBox
-            //make seperate function for the addEventListener and avoid using setAttribute here. (overwrites previously setAttribute)
-            //maybe instead of using attributes we can use box.style.
-        })
-
+        box.addEventListener('mouseover', () => {
+            if (color === 'green') {
+            box.style.backgroundColor = '#06d6a0';
+            box.style.opacity = '1';
+            console.log(Number(box.style.opacity));
+            }  else if (color === 'rainbow') {
+                box.style.backgroundColor = randomColor();
+                box.style.opacity = '1';
+                console.log(box.style.backgroundColor);
+                console.log(Number(box.style.opacity));
+            }   else  if (color === 'greyscale') {
+                console.log(box.style.backgroundColor);
+                box.style.backgroundColor = "black";
+                let opacity = Number(box.style.opacity);
+                box.style.opacity = opacity >= 1 ? 1 : opacity + 0.1;
+                // increment RGBA value by .1 when hovering
+             }   else if (color === 'eraser') {
+                 box.style.opacity = 0;
+                box.style.backgroundColor = 'rgba(0, 0, 0, 0.0)';
+            }
+})}
 }
-
-
-//create standard grid on page load:
- createStandardGrid();
-
-function createStandardGrid() {
-        for (i = 0; i<256; i++) {
-        createBox();
-        console.log("box created");
-    }
-}
-//above function see if we can optimize it or make it more clear: boxsize x boxsize, standard 16
-
- function createBox () {
-    const box = document.createElement('div');
-    box.classList.add("box");
-    document.getElementById("gridContainer").appendChild(box);
-    box.addEventListener('mouseover',changeBoxColor);
- }
-
-
-//see if we can add the event listener above outside of this function
-
- function changeBoxColor(e) {
-    e.target.setAttribute('style', `background: ${changeColor()}; width: 50px;`);
-    //specify the variable width and height here again -- write a custom createBox function within the createCustomGrid function. so that it doesn't use the changeBoxColor function
-    console.log(e.target.className);
- }
-
- function changeColor(){
-    let r = Math.floor(Math.random() * 255); 
-    let g = Math.floor(Math.random() * 255); 
-    let b = Math.floor(Math.random() * 255);
-    return `rgb(${r},${g},${b})`;
- }
-
-
-
- //button => prompt "Please enter size of grid (max 100)"
- //grid fixed width and height of 400px
- //divide width of grid by the input number = box width and height.
-
- //make standard grid size 16x16
-
- //make a function for custom field size. createCustomGrid() 
- //=> change the max-width of the container
- //=> run a custom loop again that creates amount of boxes required of input (boxes should auto-fill container automatically)
-//  Click button => prompt 'how big do you want your field?'

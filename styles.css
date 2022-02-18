@@ -10,36 +10,45 @@ html, body {
 #mainContainer {
     height: 100vh;
     width: auto;
-    justify-content: center;
     margin-left: 0;
     margin-right: 0;
     display: flex;
     border:none;
-    background-color:darkkhaki;
+    background-color:#073b4c;
     flex-direction: column;
+    flex:1;
 }
 
 #settingsContainer {
-    background-color: lightgrey;
+    background-color: #073b4c;
     width: 100vw;
     text-align: center;
+    display:flex;
+    flex-wrap: wrap;
+    max-height: 250px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
     flex:1;
-    max-height: 200px;
+    overflow: auto;
 }
 
 #gridContainer {
     box-sizing:content-box;
     display:flex;
     max-width: 400px;
-    max-height: 400px;
-    min-height: 300px;
     min-width: 300px;
+    max-height: 80vmin;
     flex-wrap:wrap;
     margin-left: auto;
     margin-right: auto;
-    border: 5px grey solid;
-    border-radius: 1%;
+    margin-bottom: 50px;
+    border: 30px #ef476f ridge;
+    border-radius: 5%;
     justify-content: center;
+    background-color: #ffd166;
+    overflow: hidden;
+    box-shadow: 4px 4px black;
 }
 
 .box {
@@ -47,5 +56,61 @@ html, body {
     width: 25px;
     height: 25px;
     margin: 0;
-    border: 1px solid red
 }
+
+button {
+    color: #073b4c;
+    font-size: 18px;
+    background-color: #ef476f;
+    border-radius: 4%;
+    width: 140px;
+    font-family: "Bungee Inline", serif;
+    font-weight:bold;
+    text-shadow: 1px 1px pink;
+    border-inline: 3px solid #06d6a0;
+    box-shadow: 1px 2px #06d6a0;
+}
+
+#title {
+    color: #ef476f;
+    font-size: 10.0vmin;
+    text-align: center;
+    min-height: 100px;
+    max-height: 30vmin;
+    font-family: "Bungee Inline", serif;
+    text-shadow: 5px 5px black;
+}
+
+#footer {
+    font-family: "Bungee Inline", serif;
+    background-color:#06d6a0;
+    display: flex;
+    flex-direction: column;    
+    margin-top: auto;
+    align-items: center;
+    justify-content: center;
+    flex:1;
+    width: 100vw;
+    max-height: 50px;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    display: inline;
+}
+a:link, a:visited {
+    color: white;
+}
+
+a:hover {
+    opacity: .8;
+}
+
+img {
+    margin-bottom: -9px;
+}
+

@@ -26,11 +26,12 @@
      color = 'eraser';
  });
 
- //below reset button creates a new custom grid, and changes the background color of the boxes to transparent
+ //reset button creates a new standard grid,  changes the background color and opacity
  //it does so by looping through the indexes of the array-like object that is created via getElementsByClassName method
+ //color set to standard green
  const resetButton = document.getElementById('reset');
  resetButton.addEventListener("click", () => {
-     createCustomGrid(16);
+     createGrid(16);
      const boxes = document.getElementsByClassName('box');
      for (let i = 0; i < boxes.length; i++) {
          boxes[i].style.backgroundColor = '';
@@ -39,31 +40,31 @@
      color = 'green';
 });
 
+//get random rgb color
 function randomColor() {
     let r = Math.floor(Math.random() * 255); 
     let g = Math.floor(Math.random() * 255); 
     let b = Math.floor(Math.random() * 255);
-    let a = 1;
-    return `rgba(${r},${g},${b},${a})`;
+    return `rgb(${r},${g},${b})`;
 }
 
-//creates initial custom grid on page load
-createCustomGrid(16);
+//creates initial grid on page load
+createGrid(16);
 
 function customGridSize() {
     let input = prompt('Please enter your desired gridsize. (min. 1 max. 100)');
-    if (input > 100) {alert("Please enter a value lower than 100.");}
-    else if (input < 1) {alert('Please enter a gridsize of 1 or higher');}
-    else { 
-            // //convert to number
+    if (input > 100) {alert("Please enter a value lower than 100.");
+    } else if (input < 1) {alert('Please enter a gridsize between 1 and 100.');
+    } else { 
+        //convert to number
         let gridSize =parseInt(input);
         console.log('Gridsize requested:' + gridSize);
-            // //create grid with gridSize input
-        createCustomGrid(gridSize);
+        //create grid with gridSize input
+        createGrid(gridSize);
     }
 }
 
-function createCustomGrid(gridSize) {
+function createGrid(gridSize) {
     //calculate total amount of boxes
     let boxAmount = gridSize * gridSize;
     console.log('total amount of boxes needed:' + boxAmount);
@@ -71,7 +72,9 @@ function createCustomGrid(gridSize) {
     let boxSize = (400 / gridSize) + 'px';
     console.log('Boxsize:' + boxSize);
     //before creating new grid, remove standard grid (boxes) loaded on start page
-    while (gridContainer.firstChild) gridContainer.removeChild(gridContainer.firstChild);
+    while (gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
+    }
     console.log("Boxamount: " + boxAmount);
 
     for (let i = 0; i < boxAmount; i++) {
@@ -85,33 +88,27 @@ function createCustomGrid(gridSize) {
         box.addEventListener('mouseover', () => {
             if (color === 'green') {
             box.style.backgroundColor = '#06d6a0';
-            box.style.opacity = '1';
+            box.style.opacity = 1;
             console.log(Number(box.style.opacity));
             }  else if (color === 'rainbow') {
                 box.style.backgroundColor = randomColor();
-                box.style.opacity = '1';
-                console.log(box.style.backgroundColor);
-                console.log(Number(box.style.opacity));
+                box.style.opacity = 1;
             }   else  if (color === 'greyscale') {
-                // console.log(box.style.backgroundColor);
-                // box.style.backgroundColor = "black";
-                // let opacity = Number(box.style.opacity);
-                // box.style.opacity = opacity >= 1 ? 1 : opacity + 0.1;
-                if (box.style.opacity === '1' && box.style.backgroundColor === 'black') {
-                        box.style.opacity = '1';
-                } else if (box.style.opacity === '1') {
-                    box.style.opacity = '.1';
-                    console.log(box.style.opacity);
-                    box.style.backgroundColor = 'black';
-                } else if (box.style.opacity < '1' || '0') {
-                    box.style.backgroundColor = 'black';
-                    let opacity = Number(box.style.opacity);
-                    box.style.opacity = opacity + 0.1;
-                    console.log(`New opacity: ${box.style.opacity}`)
-                }
+                    if (box.style.opacity === '1' && box.style.backgroundColor === 'black') {
+                        box.style.opacity = 1;
+                    } else if (box.style.opacity === '1') {
+                        box.style.opacity = 0.1;
+                        box.style.backgroundColor = 'black';
+                    } else if (box.style.opacity < '1' || '0') {
+                        box.style.backgroundColor = 'black';
+                        let opacity = Number(box.style.opacity);
+                        box.style.opacity = opacity + 0.1;
+                        console.log(`New opacity: ${box.style.opacity}`);
+                    }
              }   else if (color === 'eraser') {
-                 box.style.opacity = 0;
-                box.style.backgroundColor = 'rgba(0, 0, 0, 0.0)';
+                    box.style.opacity = 0;
+                    box.style.backgroundColor = 'rgba(0, 0, 0, 0.0)';
             }
-})}
+        })
+    }
 }

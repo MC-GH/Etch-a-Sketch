@@ -33,7 +33,8 @@
      createCustomGrid(16);
      const boxes = document.getElementsByClassName('box');
      for (let i = 0; i < boxes.length; i++) {
-         boxes[i].style.backgroundColor = 'rgba(0, 0, 0, 0)';
+         boxes[i].style.backgroundColor = '';
+         boxes[i].style.opacity = '.1';
      }
      color = 'green';
 });
@@ -92,11 +93,22 @@ function createCustomGrid(gridSize) {
                 console.log(box.style.backgroundColor);
                 console.log(Number(box.style.opacity));
             }   else  if (color === 'greyscale') {
-                console.log(box.style.backgroundColor);
-                box.style.backgroundColor = "black";
-                let opacity = Number(box.style.opacity);
-                box.style.opacity = opacity >= 1 ? 1 : opacity + 0.1;
-                // increment RGBA value by .1 when hovering
+                // console.log(box.style.backgroundColor);
+                // box.style.backgroundColor = "black";
+                // let opacity = Number(box.style.opacity);
+                // box.style.opacity = opacity >= 1 ? 1 : opacity + 0.1;
+                if (box.style.opacity === '1' && box.style.backgroundColor === 'black') {
+                        box.style.opacity = '1';
+                } else if (box.style.opacity === '1') {
+                    box.style.opacity = '.1';
+                    console.log(box.style.opacity);
+                    box.style.backgroundColor = 'black';
+                } else if (box.style.opacity < '1' || '0') {
+                    box.style.backgroundColor = 'black';
+                    let opacity = Number(box.style.opacity);
+                    box.style.opacity = opacity + 0.1;
+                    console.log(`New opacity: ${box.style.opacity}`)
+                }
              }   else if (color === 'eraser') {
                  box.style.opacity = 0;
                 box.style.backgroundColor = 'rgba(0, 0, 0, 0.0)';

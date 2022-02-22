@@ -71,6 +71,10 @@ button {
     box-shadow: 1px 5px #06d6a0;
 }
 
+button:hover {
+    transform: scale(1.05);
+}
+
 #title {
     color: #ef476f;
     font-size: 10.0vmin;
